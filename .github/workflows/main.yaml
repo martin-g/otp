@@ -67,7 +67,7 @@ jobs:
                 -f .github/dockerfiles/Dockerfile.debian-base .
               ;;
             arm64v8/debian)
-              sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
+              sudo docker run --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
               docker build -t "${BASE_TAG}" \
                 --build-arg BASE=arm64v8/debian \
                 -f .github/dockerfiles/Dockerfile.debian-base .
