@@ -80,10 +80,6 @@ jobs:
 
       - name: Build ${{ matrix.type }} image
         run: |
-          # if [ ${{matrix.type}} = "aarch64"] then;
-          sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
-          # fi
-
           docker build -t otp --build-arg ARCHIVE=otp_src.tar.gz \
           -f .github/dockerfiles/Dockerfile.${{ matrix.type }} .
 
