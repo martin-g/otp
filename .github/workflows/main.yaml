@@ -39,7 +39,8 @@ jobs:
 
     strategy:
       matrix:
-        type: [64-bit,32-bit,cross-compile,documentation]
+        # type: [64-bit,32-bit,cross-compile,documentation]
+        type: [aarch64]
       fail-fast: false
 
     steps:
@@ -65,6 +66,11 @@ jobs:
               docker build -t "${BASE_TAG}" \
                 -f .github/dockerfiles/Dockerfile.debian-base .
               ;;
+            */debian-base-aarch64)
+              docker build -t "${BASE_TAG}" \
+                --build-arg BASE=arm64v8/debian \
+                -f .github/dockerfiles/Dockerfile.debian-base .
+              ;;
             */ubuntu-base)
               docker build -t "${BASE_TAG}" \
                 -f .github/dockerfiles/Dockerfile.ubuntu-base .
@@ -73,6 +79,10 @@ jobs:
 
       - name: Build ${{ matrix.type }} image
         run: |
+          # if [ ${{matrix.type}} = "aarch64"] then;
+          sudo docker run -it --rm --privileged multiarch/qemu-user-static --reset --credential yes --persistent yes
+          # fi
+
           docker build -t otp --build-arg ARCHIVE=otp_src.tar.gz \
           -f .github/dockerfiles/Dockerfile.${{ matrix.type }} .
 
