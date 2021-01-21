@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/erlang/otp/debian-base-aarch64
+FROM arm64v8/debian
 
 ## We do a SSA lint check here
 ENV ERL_COMPILER_OPTIONS=ssalint

@@ -66,7 +66,7 @@ jobs:
               docker build -t "${BASE_TAG}" \
                 -f .github/dockerfiles/Dockerfile.debian-base .
               ;;
-            */debian-base-aarch64)
+            arm64v8/debian)
               docker build -t "${BASE_TAG}" \
                 --build-arg BASE=arm64v8/debian \
                 -f .github/dockerfiles/Dockerfile.debian-base .
